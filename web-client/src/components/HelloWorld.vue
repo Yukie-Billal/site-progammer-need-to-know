@@ -1,32 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-interface User {
-   name: string,
-   age: number,
-   active: boolean
-}
-
-const user: User = {
-   name: "Yukie",
-   age: 17,
-   active: true
-}
+import {useCounterStore} from "../stores/counter.ts";
+import {useUserStore} from "../stores/user.ts";
 
 defineProps<{ msg: string }>()
 
-const count = ref<number>(0)
-
-const setCount = () => {
-   count.value++
-   return false
-}
+const counter = useCounterStore()
+const user = useUserStore()
 </script>
 
 <template>
   <h1>{{ msg }}, {{user.name}}</h1>
 
   <div class="card" v-if="user.active">
-    <button type="button" @click="setCount">count is {{ count }}</button>
+    <button type="button" @click="counter.increment">count is {{ counter.count }}</button>
   </div>
 </template>
